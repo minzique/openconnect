@@ -482,7 +482,7 @@ struct openconnect_info {
 
 	char *hostname; /* This is the original hostname (or IP address)
 			 * we were asked to connect to */
-
+	char *sni; // Custom SNI value for the TLS client hello
 	char *unique_hostname; /* This is the IP address of the actual host
 				* that we connected to; the result of the
 				* DNS lookup. We do this so that we can be

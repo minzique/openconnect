@@ -320,7 +320,7 @@ static const struct option long_options[] = {
 	OPTION("mca-certificate", 1, OPT_MULTICERT_CERT),
 	OPTION("mca-key", 1, OPT_MULTICERT_KEY),
 	OPTION("mca-key-password", 1, OPT_MULTICERT_KEY_PASSWORD),
-	OPTION("set-sni", q1, OPT_SNI),
+	OPTION("set-sni", 1, OPT_SNI),
 	OPTION(NULL, 0, 0)};
 
 #ifdef OPENCONNECT_GNUTLS
@@ -1066,7 +1066,7 @@ static void usage(void)
 	printf("      --mca-certificate=MCACERT   %s\n", _("Use MCA certificate MCACERT"));
 	printf("      --mca-key=MCAKEY            %s\n", _("Use MCA key MCAKEY"));
 	printf("      --mca-key-password=MCAPASS  %s\n", _("Passphrase MCAPASS for MCACERT/MCAKEY"));
-
+	printf("      --set-sni  %s\n", _("Specify SNI for TLS handshake"));
 	printf("\n");
 
 	helpmessage();
