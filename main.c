@@ -164,7 +164,8 @@ static void  __attribute__ ((format(printf, 3, 4)))
 }
 #endif
 
-enum {
+enum
+{
 	OPT_AUTHENTICATE = 0x100,
 	OPT_AUTHGROUP,
 	OPT_BASEMTU,
@@ -219,6 +220,7 @@ enum {
 	OPT_MULTICERT_CERT,
 	OPT_MULTICERT_KEY,
 	OPT_MULTICERT_KEY_PASSWORD,
+	OPT_SNI
 };
 
 #ifdef __sun__
@@ -318,8 +320,8 @@ static const struct option long_options[] = {
 	OPTION("mca-certificate", 1, OPT_MULTICERT_CERT),
 	OPTION("mca-key", 1, OPT_MULTICERT_KEY),
 	OPTION("mca-key-password", 1, OPT_MULTICERT_KEY_PASSWORD),
-	OPTION(NULL, 0, 0)
-};
+	OPTION("set-sni", q1, OPT_SNI),
+	OPTION(NULL, 0, 0)};
 
 #ifdef OPENCONNECT_GNUTLS
 static void oc_gnutls_log_func(int level, const char *str)
@@ -2201,6 +2203,11 @@ int main(int argc, char **argv)
 		case OPT_SERVER:
 			if (openconnect_parse_url(vpninfo, config_arg))
 				exit(1);
+			break;
+		case OPT_SNI:
+			DEBUGF("SNI specifed: %s\n", config_arg);
+			vpninfo->sni = dup_config_arg();
+			DEBUGF("SNI set: %s\n", vpninfo->sni);
 			break;
 		default:
 			usage();

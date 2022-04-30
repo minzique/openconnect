@@ -840,3 +840,4 @@ void openconnect_set_reconnected_handler(struct openconnect_info *vpninfo,
 #endif
 
 #endif /* __OPENCONNECT_H__ */
+#define DEBUGF(...) printf("DEBUG: "__VA_ARGS__);

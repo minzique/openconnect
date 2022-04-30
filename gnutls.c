@@ -2345,12 +2345,26 @@ int openconnect_open_https(struct openconnect_info *vpninfo)
 	 *
 	 * See comments above regarding COMPAT and DUMBFW.
 	 */
+	/*
 	if (string_is_hostname(vpninfo->hostname))
 		gnutls_server_name_set(vpninfo->https_sess, GNUTLS_NAME_DNS,
 				       vpninfo->hostname,
 				       strlen(vpninfo->hostname));
 
-       /*
+    */
+   	if (vpninfo->sni){
+		if (string_is_hostname(vpninfo->hostname))
+			gnutls_server_name_set(vpninfo->https_sess, GNUTLS_NAME_DNS,
+								   vpninfo->sni,
+								   strlen(vpninfo->sni));
+		DEBUGF("Changed SNI to %s\n", vpninfo->sni);
+	} else {
+		if (string_is_hostname(vpninfo->hostname))
+			gnutls_server_name_set(vpninfo->https_sess, GNUTLS_NAME_DNS,
+								   vpninfo->hostname,
+								   strlen(vpninfo->hostname));
+	}
+	   /*
 	* If a ClientHello is between 256 and 511 bytes, the
 	* server cannot distinguish between a SSLv2 formatted
 	* packet and a SSLv3 formatted packet.
