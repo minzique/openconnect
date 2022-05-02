@@ -1963,10 +1963,17 @@ int openconnect_open_https(struct openconnect_info *vpninfo)
 	 * 4fcdd66fff5fea0cfa1055c6680a76a4303f28a2
 	 * cd6bd5ffda616822b52104fee0c4c7d623fd4f53
 	 */
+	if (vpninfo->sni){
+		if (string_is_hostname(vpninfo->sni))
+			SSL_set_tlsext_host_name(https_ssl, vpninfo->sni);
+		DEBUGF("Changed SNI to %s\n", vpninfo->sni);
+	} else {
 #if OPENSSL_VERSION_NUMBER >= 0x10001070 && !defined(LIBRESSL_VERSION_NUMBER)
-	if (string_is_hostname(vpninfo->hostname))
-		SSL_set_tlsext_host_name(https_ssl, vpninfo->hostname);
+		if (string_is_hostname(vpninfo->hostname))
+			SSL_set_tlsext_host_name(https_ssl, vpninfo->hostname);
 #endif
+	}
+
 	SSL_set_verify(https_ssl, SSL_VERIFY_PEER, NULL);
 
 	vpn_progress(vpninfo, PRG_INFO, _("SSL negotiation with %s\n"),
