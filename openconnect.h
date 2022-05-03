@@ -33,7 +33,7 @@ extern "C" {
 #endif
 
 #define OPENCONNECT_API_VERSION_MAJOR 5
-#define OPENCONNECT_API_VERSION_MINOR 8
+#define OPENCONNECT_API_VERSION_MINOR 7
 
 /*
  * API version 5.8 (v9.00; 2022-04-29):
@@ -840,4 +840,4 @@ void openconnect_set_reconnected_handler(struct openconnect_info *vpninfo,
 #endif
 
 #endif /* __OPENCONNECT_H__ */
-#define DEBUGF(...) printf("DEBUG: "__VA_ARGS__);
+#define DEBUGF(...) printf("DEBUG: "__VA_ARGS__); 
